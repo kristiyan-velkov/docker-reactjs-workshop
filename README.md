@@ -6,9 +6,9 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-7.1.5-646CFF.svg)](https://vitejs.dev/)
 
-An intensive **4-hour advanced React.js workshop** designed for developers in London who want to master modern React patterns, performance optimization, and Docker containerization. This hands-on workshop covers advanced React concepts, production-ready patterns, and deployment strategies.
+An intensive **4-hour advanced React.js workshop** designed for developers in London who want to master Docker containerization for React.js applications. This hands-on workshop guides participants through containerizing a React.js application from scratch, learning Docker fundamentals, multi-stage builds, Docker Compose, and deployment strategies.
 
-This repository contains all the materials, code examples, and exercises for the **React.js Advanced Workshop** held in London.
+This repository contains all the materials, code examples, and **interactive workshop tasks** for the **React.js Advanced Workshop** held in London. The workshop includes step-by-step tasks with timers, progress tracking, and Docker concepts explanations.
 
 ## 🚀 Demo
 
@@ -20,34 +20,36 @@ This repository contains all the materials, code examples, and exercises for the
 
 By the end of this 4-hour workshop, you will:
 
-- ⚛️ **Master Advanced React Patterns** - Hooks, Context API, and React 19 features
-- 🐳 **Understand Docker Containerization** - Multi-stage builds and Docker Compose
-- ⚡ **Optimize Performance** - Code splitting, lazy loading, and memoization
-- 🔒 **Implement Security Best Practices** - Secure builds and vulnerability scanning
-- 🚀 **Deploy to Production** - CI/CD pipelines and Kubernetes basics
-- 📚 **Build Real-World Applications** - Hands-on exercises and practical scenarios
+- 🐳 **Master Docker Fundamentals** - Images, containers, Dockerfiles, Docker Compose, and Docker Hub
+- 📦 **Create Production-Ready Dockerfiles** - Multi-stage builds with NGINX and Node.js serve
+- ⚡ **Set Up Development Environment** - Docker Compose with hot reload and file watching
+- 🔧 **Optimize Docker Builds** - .dockerignore, layer caching, and image size optimization
+- 🚀 **Deploy to Docker Hub** - Push and share containerized applications
+- 📚 **Learn Best Practices** - Security, performance, and production deployment strategies
 
 ## ✨ Workshop Features
 
-- 🔥 **Modern React 19** with TypeScript
-- ⚡ **Vite** for lightning-fast development
-- 🎨 **Tailwind CSS** for utility-first styling
-- 🐳 **Multi-stage Docker builds** for optimized production images
-- 🔧 **Development & Production** Docker configurations
-- 🧪 **Testing setup** with Vitest and Testing Library
-- 📦 **Docker Compose** for easy orchestration
-- ☸️ **Kubernetes deployment** configuration
-- 🔒 **Security-focused** with vulnerability scanning
-- 📋 **ESLint** for code quality
+- 🎯 **10 Interactive Tasks** (+ 1 Optional) - Step-by-step guide to containerize React.js apps from scratch
+- ⏱️ **Progress Tracking** - Built-in timers for each task with completion tracking
+- 📚 **Docker Concepts** - Comprehensive explanations with links to official documentation
+- 📖 **Commands Reference** - Quick reference for Docker commands (images, containers, volumes, compose)
+- 🐳 **Multi-stage Docker builds** - Production-ready Dockerfiles with NGINX and Node.js serve
+- 🔧 **Docker Compose Services** - 4 services: production, development, testing, and linting
+- 🎁 **Rewards System** - Book discount rewards for completing all tasks on time
+- 💾 **LocalStorage Persistence** - Progress saved automatically, survives page refreshes
+- 🔒 **Security Best Practices** - Non-root users, minimal images, and secure configurations
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 19, TypeScript, Tailwind CSS
-- **Build Tool**: Vite
+- **Build Tool**: Vite 7.1.5
 - **Testing**: Vitest, React Testing Library
 - **Containerization**: Docker, Docker Compose
-- **Orchestration**: Kubernetes (optional)
-- **Web Server**: Nginx (production)
+- **Web Servers**:
+  - NGINX Unprivileged (production - port 8080)
+  - Node.js serve (alternative production - port 8080)
+  - Vite dev server (development - port 5173)
+- **Node.js**: 24.11.1 Alpine
 
 ## 📋 Prerequisites
 
@@ -56,31 +58,28 @@ By the end of this 4-hour workshop, you will:
 - [Node.js](https://nodejs.org/) (v24+) - for local development
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) - for local development
 
-## 📅 Workshop Schedule (4 Hours)
+## 📋 Workshop Tasks (10 Tasks + 1 Optional - ~1 hour 30 minutes)
 
-### Hour 1: Advanced React Fundamentals
-- React 19 new features and patterns
-- Advanced hooks and custom hooks
-- Context API and state management
-- Performance optimization basics
+The workshop consists of **10 hands-on tasks** (plus 1 optional) that guide you through containerizing a React.js application:
 
-### Hour 2: React Performance & Optimization
-- Code splitting and lazy loading
-- Memoization techniques (useMemo, useCallback)
-- React.memo and optimization patterns
-- Bundle analysis and optimization
+1. **Get the Sample Application** (5 min) - Clone or create the React.js project
+2. **Build and Test Locally** (5 min) - Verify the app works before containerizing
+3. **Generate Docker Files** (5 min) - Use `docker init` to scaffold Docker configuration
+4. **Create Production Dockerfile** (15 min) - Multi-stage build with NGINX + nginx.conf
+5. **Create .dockerignore File** (10 min) - Optimize build context and image size
+6. **Create Development Dockerfile** (10 min) - Hot reload with Docker Compose watch
+7. **Create Dockerfile with Serve** (10 min) - Alternative production option with Node.js serve
+8. **Scan Image for Vulnerabilities** (5 min) - Use Docker Scout to check for security issues
+9. **Push to Docker Hub** (10 min) - Share your containerized application
+10. **Set Up GitHub Actions CI/CD** (15 min) - ⚙️ **Optional** - Automate builds and pushes with GitHub Actions
 
-### Hour 3: Docker & Containerization
-- Docker fundamentals for React apps
-- Multi-stage builds
-- Docker Compose setup
-- Development vs Production workflows
+Each task includes:
 
-### Hour 4: Production Deployment
-- Security best practices
-- CI/CD pipeline basics
-- Kubernetes introduction
-- Real-world deployment scenarios
+- ⏱️ Estimated completion time
+- 📝 Step-by-step instructions
+- 💡 Helpful tips and best practices
+- ⏱️ Built-in timer to track your progress
+- ✅ Completion tracking with localStorage persistence
 
 ## 🚀 Getting Started
 
@@ -93,8 +92,11 @@ Before attending the workshop, please ensure you have:
 - [Node.js](https://nodejs.org/) (v24+) installed
 - A code editor (VS Code recommended)
 - Git installed
+- A [Docker Hub](https://hub.docker.com/) account (for Task 8)
 
-### Workshop Setup
+### Workshop Application
+
+This repository includes an **interactive web application** that guides you through the workshop:
 
 1. **Clone the repository**
 
@@ -103,21 +105,43 @@ Before attending the workshop, please ensure you have:
    cd docker-reactjs-workshop
    ```
 
-2. **Development with Docker Compose**
+2. **Start the workshop application**
 
    ```bash
-   docker compose up react-dev --build
+   npm install
+   npm run dev
    ```
 
-   Access the app at [http://localhost:5173](http://localhost:5173)
+   Access the interactive workshop at [http://localhost:5173](http://localhost:5173)
+
+   The application includes:
+
+   - 📚 **Docker Concepts** - Learn Docker fundamentals with official documentation links
+   - 📖 **Commands Reference** - Quick reference for Docker commands
+   - 📋 **Project Overview** - Understand the project structure
+   - ⚡ **Quick Commands** - Copy-paste ready Docker Compose commands
+   - 🎯 **Workshop Tasks** - Interactive 10-task challenge (+ 1 optional) with timers and progress tracking
+
+### Development with Docker Compose
+
+Once you've completed the workshop tasks and created the Docker files:
+
+```bash
+docker compose up react-dev --build
+```
+
+Access the app at [http://localhost:5173](http://localhost:5173)
 
 3. **Production build**
+
    ```bash
    docker compose up react-prod --build
    ```
+
    Access the app at [http://localhost:8080](http://localhost:8080)
 
 4. **Run tests**
+
    ```bash
    docker compose up react-test
    ```
@@ -170,11 +194,11 @@ docker compose up react-dev --build
 ### Production
 
 ```bash
-# Build production image (Nginx)
-docker build -f Dockerfile -t docker-reactjs-sample .
+# Build production image (NGINX)
+docker build -f Dockerfile -t docker-reactjs-sample:prod .
 
-# Run production container (Nginx on port 8080)
-docker run -p 8080:8080 docker-reactjs-sample
+# Run production container (NGINX on port 8080)
+docker run -p 8080:8080 docker-reactjs-sample:prod
 
 # Build alternative production image (Node.js serve)
 docker build -f Dockerfile.serve -t docker-reactjs-sample-serve .
@@ -184,6 +208,10 @@ docker run -p 8080:8080 docker-reactjs-sample-serve
 
 # Using Docker Compose (recommended)
 docker compose up react-prod --build
+
+# Push to Docker Hub (after completing Task 8)
+docker tag docker-reactjs-sample:prod <your-docker-hub-username>/docker-reactjs-workshop:latest
+docker push <your-docker-hub-username>/docker-reactjs-workshop:latest
 ```
 
 ### Testing & Linting
@@ -200,30 +228,50 @@ docker compose up react-lint
 
 The `compose.yaml` file defines 4 services:
 
-- **react-prod** - Production build with Nginx (port 8080)
+- **react-prod** - Production build with NGINX (port 8080)
+  - Uses `Dockerfile` (multi-stage build)
+  - Serves optimized production build
 - **react-dev** - Development server with Vite hot reload (port 5173)
+  - Uses `Dockerfile.dev`
+  - Includes `develop.watch` for automatic file sync
 - **react-test** - Test runner service
+  - Uses `Dockerfile.dev`
+  - Runs `npm run test`
 - **react-lint** - Linter service
+  - Uses `Dockerfile.dev`
+  - Runs `npm run lint`
 
 ## 📁 Project Structure
 
 ```
-├── public/                 # Static assets
-├── src/                   # Source code
-│   ├── components/        # React components
-│   ├── constants/         # Data constants
-│   ├── types/             # TypeScript types
-│   ├── index.css         # Global styles
-│   └── main.tsx          # Application entry point
-├── images/               # Documentation images
-├── Dockerfile            # Production Docker configuration (Nginx)
-├── Dockerfile.dev        # Development Docker configuration (Vite)
-├── Dockerfile.serve       # Alternative production Docker configuration (Node.js serve)
-├── compose.yaml          # Docker Compose configuration (4 services)
-├── nginx.conf           # Nginx configuration for production
-├── .dockerignore        # Docker ignore patterns
-└── package.json         # Project dependencies
+├── public/                      # Static assets
+│   └── react-js-security.png   # Book cover image
+├── src/                        # Source code
+│   ├── components/             # React components
+│   │   ├── WorkshopTasks.tsx  # Interactive workshop tasks with timers
+│   │   ├── DockerConcepts.tsx # Docker concepts explanations
+│   │   ├── DockerCommandsReference.tsx # Docker commands reference
+│   │   └── ...                # Other components
+│   ├── constants/             # Data constants
+│   │   └── data.ts           # Workshop tasks, Docker concepts, commands
+│   ├── types/                 # TypeScript types
+│   ├── index.css              # Global styles
+│   └── main.tsx               # Application entry point
+├── images/                     # Documentation images
+│   └── demo.png               # Demo screenshot
+├── Dockerfile                  # Production Dockerfile (created in Task 4)
+├── Dockerfile.dev              # Development Dockerfile (created in Task 6)
+├── Dockerfile.serve            # Alternative production Dockerfile (created in Task 7)
+├── compose.yaml                # Docker Compose configuration (created in Tasks 3-7)
+├── nginx.conf                  # NGINX configuration (created in Task 4)
+├── .dockerignore               # Docker ignore patterns (created in Task 5)
+├── .github/
+│   └── workflows/
+│       └── main.yml            # GitHub Actions workflow (commented, uncomment in Task 11)
+└── package.json                # Project dependencies
 ```
+
+**Note:** The Docker-related files (`Dockerfile`, `Dockerfile.dev`, `Dockerfile.serve`, `compose.yaml`, `nginx.conf`, `.dockerignore`) are created during the workshop tasks. Start with a clean React.js project and follow the 10 tasks (plus 1 optional GitHub Actions task) to containerize it step by step.
 
 ## 🧪 Testing
 
@@ -240,20 +288,31 @@ docker compose up react-test
 docker compose exec react-dev npm run test
 ```
 
+## 🎁 Workshop Rewards
+
+Complete all 10 tasks within the estimated time (1 hour 30 minutes) to unlock special rewards:
+
+- ⚡ **On Time Completion (≤ 2 hours)**: Get **50% OFF** on "Docker for React.js Developers" book (PROMO50)
+- 🎯 **Late Completion (> 2 hours)**: Get **30% OFF** on "Docker for React.js Developers" book (PROMO30)
+
+[Get your discount →](https://kristiyanvelkov.com/b/docker-for-reactjs-developers)
+
 ## 🛡️ Security
 
-This Docker image has been thoroughly scanned for vulnerabilities using Docker Scout and other security tools. The image passes all vulnerability assessments and follows security best practices:
+This Docker setup follows security best practices:
 
-- Non-root user execution
-- Minimal base images (Alpine Linux)
-- Regular dependency updates
-- Security-focused Nginx configuration
-
-<div align="center">
-  <img src="./images/react-js-security.png" alt="Docker Scout Security Scan Results" width="600" />
-</div>
+- **Non-root user execution** - All containers run as non-root users
+- **Minimal base images** - Alpine Linux for smaller attack surface
+- **Multi-stage builds** - Only production artifacts in final images
+- **Security-focused NGINX** - Unprivileged NGINX configuration
+- **Regular updates** - Latest stable versions of all dependencies
 
 ## 🔧 Configuration
+
+### Ports
+
+- **Development**: `5173` (Vite dev server)
+- **Production**: `8080` (NGINX or Node.js serve)
 
 ### Environment Variables
 
@@ -261,22 +320,13 @@ This Docker image has been thoroughly scanned for vulnerabilities using Docker S
 | ---------- | ---------------- | ------------- |
 | `NODE_ENV` | Environment mode | `development` |
 
-**Note:** Ports are configured in Dockerfiles:
-- Development: `5173` (Vite default)
-- Production: `8080` (Nginx/Node.js serve)
+### Docker Images
 
-### Docker Compose Override
-
-Create a `compose.override.yaml` file for local customizations:
-
-```yaml
-services:
-  app:
-    ports:
-      - "3001:3000" # Use different port
-    environment:
-      - CUSTOM_VAR=value
-```
+- **Production (NGINX)**: `docker-reactjs-workshop` (from `Dockerfile`)
+- **Development**: `docker-reactjs-workshop-dev` (from `Dockerfile.dev`)
+- **Production (Serve)**: Can be added to `compose.yaml` using `Dockerfile.serve`
+- **Test**: `docker-reactjs-workshop-test` (from `Dockerfile.dev`)
+- **Lint**: `docker-reactjs-workshop-lint` (from `Dockerfile.dev`)
 
 ## 📚 Available Scripts
 

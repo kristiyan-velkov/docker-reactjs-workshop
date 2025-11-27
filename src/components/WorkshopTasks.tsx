@@ -418,6 +418,90 @@ http {
   },
   {
     id: 8,
+    title: "Scan Image for Vulnerabilities with Docker Scout",
+    description:
+      "Before pushing your image to Docker Hub, scan it for security vulnerabilities using Docker Scout. This helps ensure your production image is secure and follows best practices.",
+    estimatedTime: "5 minutes",
+    icon: "🔒",
+    steps: [
+      {
+        number: 1,
+        title: "Enable Docker Scout",
+        description:
+          "Docker Scout is built into Docker Desktop. If you're using Docker Desktop, Scout is already available. For Linux, ensure you have Docker Engine 24.0+ or install Docker Scout CLI separately.",
+        tips: [
+          "Docker Scout is included in Docker Desktop",
+          "For Linux: Install Docker Scout CLI if needed",
+          "Verify installation: docker scout --version",
+          "Docker Scout helps identify security vulnerabilities",
+        ],
+      },
+      {
+        number: 2,
+        title: "Scan your production image",
+        description:
+          "Run docker scout cves docker-reactjs-sample:prod to scan your production image for Common Vulnerabilities and Exposures (CVEs). This will analyze all layers and dependencies.",
+        tips: [
+          "Use: docker scout cves docker-reactjs-sample:prod",
+          "Replace 'docker-reactjs-sample:prod' with your actual image name",
+          "The scan analyzes all layers and packages",
+          "Review the output for any critical or high-severity vulnerabilities",
+        ],
+      },
+      {
+        number: 3,
+        title: "Review scan results",
+        description:
+          "Docker Scout will display a summary of vulnerabilities found, categorized by severity (Critical, High, Medium, Low). Review the results and check if any vulnerabilities need immediate attention.",
+        tips: [
+          "Critical and High vulnerabilities should be addressed before pushing",
+          "Medium and Low vulnerabilities can often be addressed later",
+          "Docker Scout provides recommendations for fixing vulnerabilities",
+          "Check if vulnerabilities are in your code or dependencies",
+        ],
+      },
+      {
+        number: 4,
+        title: "Get detailed recommendations",
+        description:
+          "Run docker scout recommendations docker-reactjs-sample:prod to get specific recommendations on how to fix vulnerabilities. This might include updating base images or dependencies.",
+        tips: [
+          "Use: docker scout recommendations docker-reactjs-sample:prod",
+          "This shows actionable steps to fix vulnerabilities",
+          "May suggest updating base images (e.g., newer Alpine version)",
+          "May suggest updating npm packages",
+          "Follow recommendations to improve security",
+        ],
+      },
+      {
+        number: 5,
+        title: "Fix critical vulnerabilities (if any)",
+        description:
+          "If critical or high-severity vulnerabilities are found, update your Dockerfile to use newer base images or update dependencies. Rebuild the image and scan again to verify fixes.",
+        tips: [
+          "Update base images to latest stable versions",
+          "Run npm audit fix in your project",
+          "Rebuild image: docker build -f Dockerfile -t docker-reactjs-sample:prod .",
+          "Rescan: docker scout cves docker-reactjs-sample:prod",
+          "Repeat until critical vulnerabilities are resolved",
+        ],
+      },
+      {
+        number: 6,
+        title: "Verify image is ready",
+        description:
+          "Once you've addressed critical vulnerabilities (or confirmed none exist), your image is ready to push to Docker Hub. Docker Scout helps ensure you're deploying secure containers.",
+        tips: [
+          "A clean scan doesn't mean zero vulnerabilities, but critical ones should be fixed",
+          "Docker Scout provides ongoing security monitoring",
+          "You can set up automated scanning in CI/CD pipelines",
+          "Security is an ongoing process, not a one-time check",
+        ],
+      },
+    ],
+  },
+  {
+    id: 9,
     title: "Push Image to Docker Hub",
     description:
       "Share your containerized React.js application with the world by pushing it to Docker Hub. This allows you to deploy it anywhere and share it with your team.",
@@ -495,6 +579,133 @@ http {
           "Run it: docker run -p 8080:8080 <your-docker-hub-username>/docker-reactjs-workshop:latest",
           "Replace '<your-docker-hub-username>' with your actual Docker Hub username",
           "This proves your image works anywhere Docker is installed",
+        ],
+      },
+    ],
+  },
+  {
+    id: 11,
+    title: "Set Up GitHub Actions for Automated CI/CD (Optional)",
+    description:
+      "Automate your Docker image builds and pushes to Docker Hub using GitHub Actions. This optional task sets up a CI/CD pipeline that automatically builds and pushes your image whenever you push code to GitHub.",
+    estimatedTime: "15 minutes",
+    icon: "⚙️",
+    steps: [
+      {
+        number: 1,
+        title: "Locate the workflow file",
+        description:
+          "The GitHub Actions workflow file already exists in your repository at `.github/workflows/main.yml`. It's currently commented out and ready to be activated.",
+        tips: [
+          "The file is located at: .github/workflows/main.yml",
+          "All lines are currently commented with #",
+          "The workflow includes linting, testing, and Docker image building",
+          "It's configured for Node.js 24.11.1 (matching the workshop)",
+        ],
+      },
+      {
+        number: 2,
+        title: "Uncomment the workflow file",
+        description:
+          "Open `.github/workflows/main.yml` in your editor and remove all the `#` comment characters from the beginning of each line. The file contains a complete CI/CD pipeline with three jobs: lint (code quality), test (run tests), and build-and-deploy (build and push Docker image).",
+        tips: [
+          "Remove all `#` characters from the beginning of each line",
+          "You can use Find & Replace in your editor: Find `# ` and replace with empty string",
+          "Or use sed command: sed -i '' 's/^# //' .github/workflows/main.yml (macOS/Linux)",
+          "The workflow uses Docker Buildx for multi-platform builds",
+          "It builds for both linux/amd64 and linux/arm64 platforms",
+          "Images are tagged with :latest, :short_sha, and :date",
+        ],
+      },
+      {
+        number: 3,
+        title: "Verify the workflow file",
+        description:
+          "After uncommenting, verify that the YAML syntax is correct. The file should start with `name: Docker CI/CD Pipeline` and contain three jobs: lint, test, and build-and-deploy.",
+        tips: [
+          "Check that the file starts with `name: Docker CI/CD Pipeline`",
+          "Verify there are no remaining `#` characters",
+          "The workflow should have three jobs: lint, test, build-and-deploy",
+          "You can validate YAML syntax using online tools if needed",
+        ],
+      },
+      {
+        number: 4,
+        title: "Update Docker Hub repository name",
+        description:
+          "The workflow uses DOCKERHUB_PROJECT_NAME secret. You'll need to set this in GitHub Secrets.",
+        tips: [
+          "The workflow uses: DOCKERHUB_REPO: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKERHUB_PROJECT_NAME }}",
+          "You'll configure these secrets in GitHub repository settings",
+          "DOCKERHUB_PROJECT_NAME should match your Docker Hub repository name",
+          "DOCKERHUB_PROJECT_NAME should be created in Docker Hub Settings -> Repositories -> Create Repository",
+          "Set DOCKERHUB_PROJECT_NAME to 'docker-reactjs-workshop'",
+        ],
+      },
+      {
+        number: 5,
+        title: "Configure GitHub Secrets",
+        description:
+          "Go to your GitHub repository Settings → Secrets and variables → Actions. Add three secrets: DOCKER_USERNAME (your Docker Hub username), DOCKERHUB_TOKEN (your Docker Hub access token), and DOCKERHUB_PROJECT_NAME (your repository name, e.g., 'docker-reactjs-workshop').",
+        tips: [
+          "DOCKER_USERNAME: Your Docker Hub username",
+          "DOCKERHUB_TOKEN: Create an access token at https://hub.docker.com/settings/security",
+          "DOCKERHUB_PROJECT_NAME: Your repository name (e.g., 'docker-reactjs-workshop')",
+          "Never commit secrets to your repository",
+          "GitHub Secrets are encrypted and only accessible to workflows",
+        ],
+      },
+      {
+        number: 6,
+        title: "Create Docker Hub access token",
+        description:
+          "If you don't have a Docker Hub access token, create one: Go to Docker Hub → Account Settings → Security → New Access Token. Give it a name (e.g., 'github-actions') and permissions (Read & Write). Copy the token and add it to GitHub Secrets as DOCKERHUB_TOKEN.",
+        tips: [
+          "Visit: https://hub.docker.com/settings/security",
+          "Click 'New Access Token'",
+          "Name it (e.g., 'github-actions')",
+          "Set permissions to 'Read & Write'",
+          "Copy the token immediately (you won't see it again)",
+          "Add it to GitHub Secrets as DOCKERHUB_TOKEN",
+        ],
+      },
+
+      {
+        number: 7,
+        title: "Commit and push workflow file",
+        description:
+          "Commit the `.github/workflows/main.yml` file to your repository and push it to GitHub. The workflow will automatically run on the next push or pull request.",
+        tips: [
+          "Commit: git add .github/workflows/main.yml",
+          "Commit: git commit -m 'Add GitHub Actions CI/CD workflow'",
+          "Push: git push origin main",
+          "The workflow will trigger automatically",
+        ],
+      },
+      {
+        number: 9,
+        title: "Monitor workflow execution",
+        description:
+          "Go to your GitHub repository → Actions tab to see the workflow running. Watch the lint, test, and build-and-deploy jobs execute. Once complete, check Docker Hub to see your automatically pushed image.",
+        tips: [
+          "View workflow runs: GitHub → Actions tab",
+          "Click on a workflow run to see detailed logs",
+          "Green checkmark means success, red X means failure",
+          "Check Docker Hub after successful build-and-deploy job",
+          "Images are tagged with :latest, :short_sha, and :date",
+        ],
+      },
+      {
+        number: 10,
+        title: "Verify automated push",
+        description:
+          "Visit Docker Hub and check your repository. You should see new images with tags matching the commit SHA and date. The workflow will now automatically build and push your image on every push to main or develop branches.",
+        tips: [
+          "Check: https://hub.docker.com/r/<your-docker-hub-username>/docker-reactjs-workshop",
+          "You should see :latest, :short_sha, and :date tags",
+          "Future pushes will automatically trigger builds",
+          "Pull requests will run lint and test (but not deploy)",
+          "Only pushes to main/develop branches deploy to Docker Hub",
         ],
       },
     ],
