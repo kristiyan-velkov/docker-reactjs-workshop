@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+# =========================================
+# Stage 1: Develop the React.js Application
+# =========================================
+ARG NODE_VERSION=24.22.0-alpine
+
+FROM node:${NODE_VERSION} AS dev
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN --mount=type=cache,target=/root/.npm npm install
+
+COPY . .
+
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+RUN chown -R nodejs:nodejs /app
+
+USER nodejs
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

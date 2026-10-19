@@ -1,0 +1,37 @@
+# syntax=docker/dockerfile:1
+# =============================
+# Stage 1: Build the application
+# =============================
+ARG NODE_VERSION=24.22.0
+
+FROM node:${NODE_VERSION}-alpine AS build
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
+
+COPY . .
+
+RUN npm run build
+
+# =============================
+# Stage 2: Final Runtime Image
+# =============================
+FROM node:${NODE_VERSION}-alpine AS final
+
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+RUN npm install -g serve@14.2.5
+
+COPY --chown=node:node --from=build /app/dist /app/dist
+
+USER node
+
+EXPOSE 8080
+
+CMD ["serve", "-s", "dist", "-l", "8080"]
