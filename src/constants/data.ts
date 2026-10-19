@@ -92,7 +92,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     description:
       "A Dockerfile is a text file containing instructions for building a Docker image. It defines the base image, sets up the environment, copies files, installs dependencies, and configures how the container runs. This project uses multi-stage builds for optimized production images.",
     example:
-      "FROM node:24.11.1-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
+      "FROM node:24.22.0-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
     docsLink: "https://docs.docker.com/reference/dockerfile/",
   },
   {
@@ -172,11 +172,11 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
   },
   {
     icon: "🚀",
-    title: "Docker Init",
+    title: "Gordon (Docker AI)",
     description:
-      "Docker Init is a command-line tool that helps initialize Docker resources in your project. It automatically generates Dockerfiles, compose.yaml files, and .dockerignore files based on your project type, making it easier to get started with Docker.",
-    example: "docker init",
-    docsLink: "https://docs.docker.com/reference/cli/docker/init/",
+      "Gordon is Docker's AI assistant in Docker Desktop and the CLI (docker ai). It reads your project, proposes actions, and can generate or update Dockerfiles, compose.yaml, and .dockerignore with your approval.",
+    example: 'docker ai "containerize this React app"',
+    docsLink: "https://docs.docker.com/ai/gordon/",
   },
 ];
 
@@ -216,7 +216,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker pull <image-name>:<tag>",
         description: "Download an image from a registry",
         examples: [
-          "docker pull node:24.11.1-alpine",
+          "docker pull node:24.22.0-alpine",
           "docker pull nginxinc/nginx-unprivileged:alpine3.22",
         ],
       },
@@ -428,6 +428,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
 
 export const SOCIAL_LINKS = {
   linkedin: "https://www.linkedin.com/in/kristiyan-velkov-763130b3/",
+  x: "https://x.com/krisvelkov",
   medium: "https://medium.com/@kristiyanvelkov",
   newsletter: "https://frontendworld.substack.com/",
   github: "https://github.com/kristiyan-velkov/docker-reactjs-workshop",

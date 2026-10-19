@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import bookCover from "../assets/docker-for-react-js-developers.png";
+import { TaskStepsPanel } from "./TaskStepsPanel";
 
 interface Task {
   id: number;
@@ -40,7 +42,7 @@ const WORKSHOP_TASKS: Task[] = [
           "Either clone the sample repository or create a new React.js application using Vite. If creating new, use the React TypeScript template.",
         tips: [
           "Clone: git clone https://github.com/kristiyan-velkov/docker-reactjs-workshop",
-          "Move into the project directory: cd docker-reactjs-sample",
+          "Move into the project directory: cd docker-reactjs-workshop",
         ],
       },
       {
@@ -96,55 +98,55 @@ const WORKSHOP_TASKS: Task[] = [
   },
   {
     id: 3,
-    title: "Generate Docker Files with docker init",
+    title: "Generate Docker Files with Gordon",
     description:
-      "Use Docker's built-in interactive tool to automatically scaffold Docker configuration files. This gives you a starting point to build upon.",
+      "Use Gordon (Docker's AI assistant) to scaffold Dockerfile, compose.yaml, and .dockerignore from your React + Vite project. Approve each action Gordon proposes, then refine in the next tasks.",
     estimatedTime: "5 minutes",
     icon: "🚀",
     steps: [
       {
         number: 1,
-        title: "Run docker init",
+        title: "Open Gordon with your project context",
         description:
-          "Navigate to your project root directory and run docker init. This interactive command will guide you through creating Docker files.",
+          "In Docker Desktop, open Gordon from the sidebar and allow access to your React project directory. Alternatively, from the project root in a terminal, run docker ai to start Gordon in the CLI.",
         tips: [
-          "Make sure you're in the project root directory",
-          "The command will ask you several questions about your app",
+          "Use the project root (where package.json lives)",
+          "Sign in to Docker Desktop if Gordon asks",
+          "Gordon proposes actions before it runs commands or writes files — review each step",
         ],
       },
       {
         number: 2,
-        title: "Answer the prompts",
+        title: "Ask Gordon to containerize the app",
         description:
-          "When prompted, select: Node as platform, Node.js version 24.11.1 (latest LTS), npm as package manager, yes to run npm run build, dist as build output directory, npm run preview as start command, and 4173 as the port.",
+          'Prompt Gordon to generate Docker assets for your Vite React app. Example: "Containerize this React + Vite application. Use Node.js 24.22.0-alpine, npm, build output in dist/, and include Dockerfile, .dockerignore, and compose.yaml for local development." Approve file writes when prompted.',
         tips: [
-          "Always select the latest LTS Node.js version",
-          "Check Node.js official docs for current LTS version",
-          "The generated files are a starting point, not final",
+          "Mention npm run build and that production output is in dist/",
+          "Ask for a dev service with hot reload if you want compose for development",
+          "Generated files are a starting point — Task 4+ replaces them with production-ready builds",
         ],
+        code: 'docker ai "Create a Dockerfile, .dockerignore, and compose.yaml to containerize this Vite React app"',
       },
       {
         number: 3,
         title: "Review generated files",
         description:
-          "Check what files were created: Dockerfile, .dockerignore, compose.yaml, and README.Docker.md. Open each file to understand what Docker generated. Note that these are generic templates, not optimized for React.js production.",
+          "Check what Gordon created: typically Dockerfile, .dockerignore, compose.yaml, and sometimes README.Docker.md. Read each file and confirm paths, ports, and build/start commands match your app (Vite dev on 5173, preview on 4173).",
         tips: [
-          "The generated Dockerfile uses npm run preview - not ideal for production",
-          "The .dockerignore might be too broad or miss React-specific files",
-          "The compose.yaml assumes Node.js server behavior",
-          "We'll replace these with optimized versions",
+          "First drafts often use npm run preview for production — not ideal for real deploys",
+          "Verify .dockerignore excludes node_modules and local env files",
+          "Note anything you will replace in the multi-stage NGINX task next",
         ],
       },
       {
         number: 4,
         title: "Test the generated setup",
         description:
-          "Run docker compose up --build to test Docker's generated configuration. Visit http://localhost:4173. Note: The app likely won't load because Vite preview binds to localhost inside the container, making it inaccessible from your host machine. This is expected - we'll fix it in the next steps by using NGINX or serve instead.",
+          "Run docker compose up --build to test Gordon's configuration. Open the URL and port Gordon configured (often http://localhost:4173 for preview-based setups). If the page does not load, Vite preview may be binding to localhost inside the container — expected; fix it in later tasks with NGINX or serve.",
         tips: [
-          "If the app doesn't load, it's because Vite preview binds to localhost (127.0.0.1) by default",
-          "Inside a Docker container, 'localhost' refers to the container itself, not your host machine",
-          "This means the app is only accessible from inside the container, not from your browser",
-          "This is a common issue with docker init and Vite - we'll fix it by using a proper web server (NGINX or serve) in the next steps",
+          "Inside a container, localhost is not your host machine",
+          "Preview binding to 127.0.0.1 is a common Gordon/Vite first-draft issue",
+          "Use docker compose logs if the service exits or the port is wrong",
         ],
       },
     ],
@@ -161,7 +163,7 @@ const WORKSHOP_TASKS: Task[] = [
         number: 1,
         title: "Create the build stage",
         description:
-          "Start with ARG declarations for NODE_VERSION (24.11.1-alpine) and NGINX_VERSION (alpine3.22). Create Stage 1 (builder) using node:${NODE_VERSION}. Set WORKDIR to /app. Copy package.json and package-lock.json first, then run npm ci with cache mount. Copy the rest of your source code, then run npm run build.",
+          "Start with ARG declarations for NODE_VERSION (24.22.0-alpine) and NGINX_VERSION (alpine3.22). Create Stage 1 (builder) using node:${NODE_VERSION}. Set WORKDIR to /app. Copy package.json and package-lock.json first, then run npm ci with cache mount. Copy the rest of your source code, then run npm run build.",
         tips: [
           "Use ARG to make versions configurable",
           "Copy package files first for better Docker layer caching",
@@ -344,12 +346,13 @@ http {
         number: 2,
         title: "Configure for development",
         description:
-          "Use Node.js 24.11.1-alpine. Set WORKDIR to /app. Copy package files first, then install dependencies with npm install (not npm ci - dev dependencies needed). Copy source code. Create non-root user (nodejs, UID 1001) with addgroup and adduser. Change ownership of /app to nodejs. Switch to USER nodejs. EXPOSE port 5173. Set CMD to npm run dev.",
+          "Use Node.js 24.22.0-alpine. Set WORKDIR to /app. Copy package files first, then install dependencies with npm install (not npm ci - dev dependencies needed). Copy source code. Create non-root user (nodejs, UID 1001) with addgroup and adduser. Change ownership of /app to nodejs. Switch to USER nodejs. EXPOSE port 5173. Set CMD to npm run dev.",
         tips: [
           "Use npm install (not npm ci) for dev dependencies",
           "Create user before switching to it",
           "Use chown to set proper ownership",
           "Expose Vite's default dev port (5173)",
+          "In vite.config.ts set server.host: true (and strictPort if needed) so Vite listens on 0.0.0.0 inside the container",
         ],
       },
       {
@@ -364,6 +367,7 @@ http {
           "Run: docker compose up react-dev --build",
           "Visit http://localhost:5173 to see your app",
           "Make a code change and watch it reload automatically",
+          "Optional: add react-test and react-lint services (same Dockerfile.dev) with command npm run test / npm run lint for CI-style checks",
         ],
       },
     ],
@@ -386,7 +390,7 @@ http {
         number: 2,
         title: "Add build and serve stages",
         description:
-          "Create build stage with Node.js 24.11.1-alpine. Copy package files, run npm ci with cache. Copy source and build. Create final stage with Node.js. Set NODE_ENV=production. Install serve@14.2.5 globally. Copy built files from build stage to /app/dist with --chown=node:node. Switch to USER node. EXPOSE 8080. Set CMD to serve -s dist -l 8080.",
+          "Create build stage with Node.js 24.22.0-alpine. Copy package files, run npm ci with cache. Copy source and build. Create final stage with Node.js. Set NODE_ENV=production. Install serve@14.2.5 globally. Copy built files from build stage to /app/dist with --chown=node:node. Switch to USER node. EXPOSE 8080. Set CMD to serve -s dist -l 8080.",
         tips: [
           "Multi-stage keeps final image small",
           "Install serve globally in final stage",
@@ -600,7 +604,8 @@ http {
           "The file is located at: .github/workflows/main.yml",
           "All lines are currently commented with #",
           "The workflow includes linting, testing, and Docker image building",
-          "It's configured for Node.js 24.11.1 (matching the workshop)",
+          "Tests run with npm test (same as local validation)",
+          "It's configured for Node.js 24.22.0 (matching the workshop Docker image)",
         ],
       },
       {
@@ -671,7 +676,7 @@ http {
       },
 
       {
-        number: 7,
+        number: 8,
         title: "Commit and push workflow file",
         description:
           "Commit the `.github/workflows/main.yml` file to your repository and push it to GitHub. The workflow will automatically run on the next push or pull request.",
@@ -773,7 +778,7 @@ export const WorkshopTasks = () => {
   const [timers, setTimers] = useState<Record<number, TimerState>>(() =>
     loadTimersFromStorage()
   );
-  const intervalRefs = useRef<Record<number, NodeJS.Timeout>>({});
+  const intervalRefs = useRef<Record<number, ReturnType<typeof setInterval>>>({});
   const isInitialMount = useRef(true);
 
   // Mark initial mount as complete after first render
@@ -919,7 +924,7 @@ export const WorkshopTasks = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-2xl border-l-4 border-[#667eea] mb-8">
+      <div className="bg-white p-6 md:p-8 rounded-2xl ring-1 ring-zinc-200/90 mb-8 shadow-sm">
         <div className="flex items-start justify-between flex-wrap gap-4 mb-3">
           <div className="flex-1">
             <h3 className="text-2xl font-bold text-gray-800 mb-2">
@@ -932,22 +937,22 @@ export const WorkshopTasks = () => {
               how long each task takes you.
             </p>
           </div>
-          <div className="shrink-0 bg-white px-4 py-2 rounded-lg border-2 border-[#667eea] shadow-sm">
+          <div className="shrink-0 bg-white px-4 py-2 rounded-lg border-2 border-brand-600/30 shadow-sm">
             <p className="text-xs font-semibold text-gray-600 mb-1">
               ⏱️ Expected Time
             </p>
-            <p className="text-lg font-bold text-[#667eea]">
+            <p className="text-lg font-bold text-brand-700">
               {calculateTotalEstimatedTime()}
             </p>
           </div>
         </div>
         {(totalTime > 0 || completedTasksCount > 0) && (
-          <div className="mt-4 p-3 bg-white rounded-lg border-2 border-[#667eea]">
+          <div className="mt-4 p-3 bg-white rounded-lg border border-brand-600/25">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4 flex-wrap">
                 <p className="text-sm font-semibold text-gray-700">
                   ⏱️ Total Workshop Time:{" "}
-                  <span className="text-lg font-mono font-bold text-[#667eea]">
+                  <span className="text-lg font-mono font-bold text-brand-700">
                     {formatTime(totalTime)}
                   </span>
                 </p>
@@ -961,8 +966,9 @@ export const WorkshopTasks = () => {
                 )}
               </div>
               <button
+                type="button"
                 onClick={resetAllProgress}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                className="btn-danger"
               >
                 🔄 Reset All Progress
               </button>
@@ -985,26 +991,29 @@ export const WorkshopTasks = () => {
         return (
           <div
             key={task.id}
-            className={`bg-white rounded-2xl shadow-lg border-2 overflow-hidden hover:shadow-xl transition-shadow duration-300 ${
+            className={`rounded-2xl overflow-hidden transition-shadow duration-300 ring-1 ${
               timer.completed
-                ? "border-green-500 bg-green-50"
-                : "border-gray-200"
+                ? "bg-emerald-50/40 ring-emerald-500/40 shadow-sm shadow-emerald-500/5"
+                : "bg-white ring-zinc-200/90 shadow-sm hover:shadow-md"
             }`}
           >
-            <div className="p-6">
+            <div className="p-5 sm:p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-4 flex-1">
                   <span className="text-4xl">{task.icon}</span>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-800 mb-1">
-                      Task {task.id}: {task.title}
+                    <h3 className="text-lg font-semibold text-zinc-900 tracking-tight mb-1">
+                      <span className="text-zinc-400 font-mono text-sm mr-2">
+                        {String(task.id).padStart(2, "0")}
+                      </span>
+                      {task.title}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-2">
+                    <p className="text-zinc-600 text-sm mb-2 leading-relaxed">
                       {task.description}
                     </p>
                     <div className="flex items-center gap-4 mt-2 flex-wrap">
-                      <span className="text-xs font-semibold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                        ⏱️ Estimated: {task.estimatedTime}
+                      <span className="text-xs font-medium text-zinc-600 bg-zinc-100 ring-1 ring-inset ring-zinc-200/80 px-3 py-1 rounded-full">
+                        {task.estimatedTime} est.
                       </span>
                       {timer.completed && completionTimeFormatted ? (
                         <div className="flex items-center gap-2">
@@ -1044,14 +1053,14 @@ export const WorkshopTasks = () => {
                     {!timer.isRunning ? (
                       <button
                         onClick={() => startTimer(task.id)}
-                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                        className="btn-success"
                       >
                         ▶️ Start Timer
                       </button>
                     ) : (
                       <button
                         onClick={() => stopTimer(task.id)}
-                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                        className="btn-danger"
                       >
                         ⏸️ Stop Timer
                       </button>
@@ -1059,7 +1068,7 @@ export const WorkshopTasks = () => {
                     {timer.elapsedTime > 0 && (
                       <button
                         onClick={() => completeTask(task.id)}
-                        className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                        className="btn-accent"
                       >
                         ✅ Complete Task
                       </button>
@@ -1072,70 +1081,25 @@ export const WorkshopTasks = () => {
                     </div>
                     <button
                       onClick={() => editTask(task.id)}
-                      className="px-4 py-2 bg-gray-50 text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-100 hover:border-gray-400 transition-all duration-200 font-semibold text-sm flex items-center gap-2 shadow-sm"
+                      className="btn-outline"
                     >
                       ✏️ Edit Task
                     </button>
                   </>
                 )}
                 <button
+                  type="button"
                   onClick={() => toggleTask(task.id)}
-                  className="ml-auto px-4 py-2 bg-[#667eea] text-white rounded-lg hover:bg-[#764ba2] transition-colors duration-200 font-semibold text-sm flex items-center gap-2"
+                  className="btn-outline ml-auto"
                 >
-                  {expandedTask === task.id ? "▼ Hide Steps" : "▶ Show Steps"}
+                  {expandedTask === task.id
+                    ? `Hide steps (${task.steps.length})`
+                    : `Show steps (${task.steps.length})`}
                 </button>
               </div>
 
               {expandedTask === task.id && (
-                <div className="border-t border-gray-200 pt-4 mt-4">
-                  <div className="space-y-4">
-                    {task.steps.map((step) => (
-                      <div
-                        key={step.number}
-                        className="bg-gray-50 rounded-xl p-5 border-l-4 border-blue-500 shadow-sm"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="shrink-0 w-8 h-8 bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white rounded-full flex items-center justify-center font-bold text-sm">
-                            {step.number}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-semibold text-gray-800 mb-2">
-                              {step.title}
-                            </h4>
-                            <p className="text-gray-600 text-sm mb-3">
-                              {step.description}
-                            </p>
-
-                            {step.code && (
-                              <div className="mt-3 p-4 bg-gray-900 rounded-lg border border-gray-700 overflow-x-auto">
-                                <pre className="text-sm text-gray-100 font-mono whitespace-pre">
-                                  <code>{step.code}</code>
-                                </pre>
-                              </div>
-                            )}
-                            {step.tips && step.tips.length > 0 && (
-                              <div className="mt-3 p-3 bg-yellow-50 border-l-4 border-yellow-400 rounded">
-                                <p className="text-xs font-semibold text-yellow-800 mb-2">
-                                  💡 Tips:
-                                </p>
-                                <ul className="list-disc list-inside space-y-1">
-                                  {step.tips.map((tip, index) => (
-                                    <li
-                                      key={index}
-                                      className="text-xs text-yellow-700"
-                                    >
-                                      {tip}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <TaskStepsPanel steps={task.steps} />
               )}
             </div>
           </div>
@@ -1172,9 +1136,9 @@ export const WorkshopTasks = () => {
             )}
           </div>
 
-          <div className="mt-6 bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-500 p-8 rounded-2xl shadow-xl">
+          <div className="mt-6 bg-gradient-to-r from-surface-100 to-white border-2 border-brand-600/40 p-8 rounded-2xl shadow-lg">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-purple-800 mb-3">
+              <h3 className="text-2xl font-bold text-brand-900 mb-3">
                 🎁 Special Reward for Completing the Workshop!
               </h3>
               <p className="text-gray-700 mb-4 text-lg">
@@ -1182,13 +1146,13 @@ export const WorkshopTasks = () => {
                 reward for your dedication, get an exclusive discount on the
                 comprehensive book:
               </p>
-              <div className="bg-white p-6 rounded-xl mb-4 border-2 border-purple-300">
+              <div className="bg-white p-6 rounded-xl mb-4 border border-surface-200 shadow-sm">
                 <div className="flex flex-col md:flex-row items-center gap-6 mb-4">
                   <div className="shrink-0">
                     <img
-                      src="/src/assets/docker-for-react-js-developers.png"
-                      alt="React.js Security Book Cover"
-                      className="w-48 h-auto rounded-lg shadow-lg border-2 border-purple-200"
+                      src={bookCover}
+                      alt="Docker for React.js Developers book cover"
+                      className="w-48 h-auto rounded-lg shadow-lg border border-surface-200"
                     />
                   </div>
                   <div className="flex-1 text-center md:text-left">
@@ -1233,7 +1197,7 @@ export const WorkshopTasks = () => {
                           href="https://kristiyanvelkov.com/b/docker-for-reactjs-developers"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 font-semibold"
+                          className="btn-promo-emerald"
                         >
                           Get 50% Discount →
                         </a>
@@ -1269,7 +1233,7 @@ export const WorkshopTasks = () => {
                           href="https://kristiyanvelkov.com/b/docker-for-reactjs-developers"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold"
+                          className="btn-promo-sky"
                         >
                           Get 30% Discount →
                         </a>

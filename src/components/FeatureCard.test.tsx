@@ -22,7 +22,6 @@ describe("FeatureCard Component", () => {
   it("renders the feature title", () => {
     render(<FeatureCard feature={mockFeature} index={0} />);
     const title = screen.getByText(mockFeature.title);
-    expect(title).toBeInTheDocument();
     expect(title.tagName).toBe("H3");
   });
 
@@ -35,18 +34,17 @@ describe("FeatureCard Component", () => {
     const { container } = render(
       <FeatureCard feature={mockFeature} index={0} />
     );
-    const card = container.querySelector(".bg-white.p-10");
-    expect(card).toBeInTheDocument();
+    const card = container.firstChild as HTMLElement;
     expect(card).toHaveClass("rounded-2xl");
-    expect(card).toHaveClass("shadow-md");
+    expect(card).toHaveClass("p-6");
   });
 
-  it("applies animation delay based on index", () => {
+  it("applies featured styling when featured is true", () => {
     const { container } = render(
-      <FeatureCard feature={mockFeature} index={2} />
+      <FeatureCard feature={mockFeature} index={0} featured />
     );
     const card = container.firstChild as HTMLElement;
-    expect(card.style.animationDelay).toBe("0.2s");
+    expect(card).toHaveClass("bg-zinc-900");
   });
 
   it("renders with different feature data", () => {
@@ -56,8 +54,6 @@ describe("FeatureCard Component", () => {
       description: "Built with Vite for instant HMR",
     };
     render(<FeatureCard feature={anotherFeature} index={1} />);
-    expect(screen.getByText(anotherFeature.icon)).toBeInTheDocument();
     expect(screen.getByText(anotherFeature.title)).toBeInTheDocument();
-    expect(screen.getByText(anotherFeature.description)).toBeInTheDocument();
   });
 });

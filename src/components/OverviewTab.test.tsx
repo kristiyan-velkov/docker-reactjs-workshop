@@ -36,7 +36,7 @@ describe("OverviewTab Component", () => {
     render(<OverviewTab />);
     expect(screen.getByText(/React 19 with TypeScript/i)).toBeInTheDocument();
     expect(screen.getByText(/Vite for blazing fast builds/i)).toBeInTheDocument();
-    expect(screen.getByText(/Node.js 24.11.1 Alpine/i)).toBeInTheDocument();
+    expect(screen.getByText(/Node.js 24.22.0 Alpine/i)).toBeInTheDocument();
     expect(screen.getByText(/Nginx Unprivileged/i)).toBeInTheDocument();
     expect(screen.getByText(/ESLint & Vitest for quality/i)).toBeInTheDocument();
   });
@@ -51,7 +51,7 @@ describe("OverviewTab Component", () => {
 
   it("applies correct CSS classes to content boxes", () => {
     const { container } = render(<OverviewTab />);
-    const contentBoxes = container.querySelectorAll(".bg-gray-50.p-8");
+    const contentBoxes = container.querySelectorAll(".bg-white.p-8");
     expect(contentBoxes.length).toBe(2);
     contentBoxes.forEach((box) => {
       expect(box).toHaveClass("rounded-2xl");

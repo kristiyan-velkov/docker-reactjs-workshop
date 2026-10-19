@@ -10,7 +10,7 @@ export const CommandCard = ({ command }: CommandCardProps) => {
   };
 
   return (
-    <div className="bg-gray-50 p-8 rounded-2xl border-l-4 border-green-500">
+    <div className="bg-white p-8 rounded-2xl border border-surface-200 border-l-4 border-l-brand-600 shadow-sm">
       <h3 className="text-2xl font-bold text-gray-800 mb-2">{command.title}</h3>
       <p className="text-gray-600 mb-4">{command.description}</p>
       <div className="bg-gray-800 p-6 rounded-xl flex flex-wrap items-center justify-between gap-4">
@@ -19,7 +19,7 @@ export const CommandCard = ({ command }: CommandCardProps) => {
         </code>
         <button
           onClick={handleCopy}
-          className="bg-white/10 border border-white/20 text-white px-4 py-2 rounded-lg hover:bg-white/20 hover:scale-110 transition-all duration-300 text-xl"
+          className="btn-copy"
           title="Copy to clipboard"
           aria-label="Copy command to clipboard"
         >

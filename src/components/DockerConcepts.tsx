@@ -6,7 +6,7 @@ export const DockerConcepts = () => {
       {DOCKER_CONCEPTS.map((concept, index) => (
         <div
           key={index}
-          className="bg-gray-100 p-8 rounded-2xl border-l-4 border-[#667eea] shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
+          className="bg-white p-8 rounded-2xl border border-surface-200 border-l-4 border-l-brand-600 shadow-sm hover:shadow-lg hover:border-brand-500/30 transition-all duration-300 flex flex-col"
         >
           <div className="flex items-start gap-4 mb-4">
             <span className="text-4xl">{concept.icon}</span>
@@ -29,7 +29,7 @@ export const DockerConcepts = () => {
               href={concept.docsLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#667eea] text-white rounded-lg hover:bg-[#764ba2] transition-colors duration-200 font-semibold text-sm mt-auto"
+              className="btn-link"
             >
               <span>📚</span>
               <span>Learn More</span>

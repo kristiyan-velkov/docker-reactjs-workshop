@@ -1,24 +1,24 @@
-# ⚛️ React.js Advanced Workshop - 4 Hours • London
+# ⚛️ React.js Advanced Workshop — Docker & React.js
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
-[![React](https://img.shields.io/badge/React-19.1.1-61DAFB.svg)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.1.5-646CFF.svg)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-19.3.0-61DAFB.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0.3-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8.3.4-646CFF.svg)](https://vitejs.dev/)
 
-An intensive **4-hour advanced React.js workshop** designed for developers in London who want to master Docker containerization for React.js applications. This hands-on workshop guides participants through containerizing a React.js application from scratch, learning Docker fundamentals, multi-stage builds, Docker Compose, and deployment strategies.
+A **hands-on advanced React.js workshop** for developers who want to master Docker containerization for React.js applications. Participants containerize a React.js application from scratch, learning Docker fundamentals, multi-stage builds, Docker Compose, and deployment strategies.
 
-This repository contains all the materials, code examples, and **interactive workshop tasks** for the **React.js Advanced Workshop** held in London. The workshop includes step-by-step tasks with timers, progress tracking, and Docker concepts explanations.
+This repository contains all the materials, code examples, and **interactive workshop tasks** for the **React.js Advanced Workshop**. The workshop includes step-by-step tasks with timers, progress tracking, and Docker concepts explanations.
 
 ## 🚀 Demo
 
 <div align="center">
-  <img src="./images/demo.png" alt="React.js Docker Sample Application Demo" width="800" />
+  <img src="./images/demo.png" alt="React.js Advanced Workshop — Docker containerization interactive guide" width="800" />
 </div>
 
 ## 🎯 Workshop Objectives
 
-By the end of this 4-hour workshop, you will:
+By the end of this workshop, you will:
 
 - 🐳 **Master Docker Fundamentals** - Images, containers, Dockerfiles, Docker Compose, and Docker Hub
 - 📦 **Create Production-Ready Dockerfiles** - Multi-stage builds with NGINX and Node.js serve
@@ -42,20 +42,20 @@ By the end of this 4-hour workshop, you will:
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 19, TypeScript, Tailwind CSS
-- **Build Tool**: Vite 7.1.5
+- **Build Tool**: Vite 8.3.4
 - **Testing**: Vitest, React Testing Library
 - **Containerization**: Docker, Docker Compose
 - **Web Servers**:
   - NGINX Unprivileged (production - port 8080)
   - Node.js serve (alternative production - port 8080)
   - Vite dev server (development - port 5173)
-- **Node.js**: 24.11.1 Alpine
+- **Node.js**: `24.22.0-alpine` in Dockerfiles; 22+ LTS for local development and CI
 
 ## 📋 Prerequisites
 
 - [Docker](https://www.docker.com/get-started) (v20.10+)
 - [Docker Compose](https://docs.docker.com/compose/install/) (v2.0+)
-- [Node.js](https://nodejs.org/) (v24+) - for local development
+- [Node.js](https://nodejs.org/) (22 LTS or newer) - for local development
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) - for local development
 
 ## 📋 Workshop Tasks (10 Tasks + 1 Optional - ~1 hour 30 minutes)
@@ -64,7 +64,7 @@ The workshop consists of **10 hands-on tasks** (plus 1 optional) that guide you 
 
 1. **Get the Sample Application** (5 min) - Clone or create the React.js project
 2. **Build and Test Locally** (5 min) - Verify the app works before containerizing
-3. **Generate Docker Files** (5 min) - Use `docker init` to scaffold Docker configuration
+3. **Generate Docker Files** (5 min) - Use **Gordon** (`docker ai` / Docker Desktop) to scaffold Docker configuration
 4. **Create Production Dockerfile** (15 min) - Multi-stage build with NGINX + nginx.conf
 5. **Create .dockerignore File** (10 min) - Optimize build context and image size
 6. **Create Development Dockerfile** (10 min) - Hot reload with Docker Compose watch
@@ -89,10 +89,10 @@ Before attending the workshop, please ensure you have:
 
 - [Docker](https://www.docker.com/get-started) (v20.10+) installed
 - [Docker Compose](https://docs.docker.com/compose/install/) (v2.0+) installed
-- [Node.js](https://nodejs.org/) (v24+) installed
+- [Node.js](https://nodejs.org/) (22 LTS or newer) installed
 - A code editor (VS Code recommended)
 - Git installed
-- A [Docker Hub](https://hub.docker.com/) account (for Task 8)
+- A [Docker Hub](https://hub.docker.com/) account (for Task 9)
 
 ### Workshop Application
 
@@ -176,6 +176,23 @@ Access the app at [http://localhost:5173](http://localhost:5173)
    npm run build
    ```
 
+## ☁️ Deploy on Zerops
+
+The workshop UI is a static Vite build served by Zerops **Static** (SPA fallback included).
+
+| File | Purpose |
+| --- | --- |
+| [`import.yaml`](./import.yaml) | Import project + `workshop` static service |
+| [`zerops.yaml`](./zerops.yaml) | Build (`npm ci` → `npm run build`) and deploy `dist/` |
+
+**Quick start**
+
+1. In [Zerops](https://app.zerops.io), choose **Import a project** and paste `import.yaml`.
+2. Open the **workshop** service → connect this GitHub repo → trigger deploy.
+3. Enable the Zerops subdomain or attach your domain under **Public access**.
+
+Service hostname must stay **`workshop`** — it matches `setup: workshop` in `zerops.yaml`. Deploy manually from the repo root with [zCLI](https://docs.zerops.io/references/cli/): `zcli push workshop`.
+
 ## 🐳 Docker Commands
 
 ### Development
@@ -209,7 +226,7 @@ docker run -p 8080:8080 docker-reactjs-sample-serve
 # Using Docker Compose (recommended)
 docker compose up react-prod --build
 
-# Push to Docker Hub (after completing Task 8)
+# Push to Docker Hub (after completing Task 9)
 docker tag docker-reactjs-sample:prod <your-docker-hub-username>/docker-reactjs-workshop:latest
 docker push <your-docker-hub-username>/docker-reactjs-workshop:latest
 ```
@@ -360,11 +377,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Medium: [@kristiyanvelkov](https://medium.com/@kristiyanvelkov)
 - Newsletter: [Front-end World](https://kristiyanvelkov.substack.com)
 
-## 📍 Workshop Location
+## 👥 Who This Workshop Is For
 
-**London, UK**
-
-This workshop is designed for developers in the London area. All materials and exercises are tailored for a 4-hour intensive learning experience.
+Front-end and full-stack developers who already work with React.js and want a practical path to containerizing, testing, and deploying React applications with Docker. All materials are self-contained and reusable for live sessions, team training, or self-paced learning.
 
 ## ☕ Support
 

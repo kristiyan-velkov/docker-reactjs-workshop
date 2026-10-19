@@ -1,0 +1,26 @@
+# zeropsPreprocessor=on
+# yaml-language-server: $schema=https://api.app-prg1.zerops.io/api/rest/public/settings/zerops-yaml-json-schema.json
+#
+# Vite + React SPA: build with Node.js 24, serve static assets from dist/.
+# Service hostname in import.yaml must be "workshop" (matches setup name below).
+
+zerops:
+  - setup: workshop
+    build:
+      base: ubuntu/nodejs@24
+
+      buildCommands:
+        # DevDependencies (TypeScript, Vite, Tailwind) are required for npm run build.
+        - npm ci --include=dev
+        - npm run build
+
+      # Contents of dist/ become the document root (SPA fallback is built in).
+      deployFiles:
+        - dist/~
+
+      cache:
+        - node_modules
+        - ~/.npm
+
+    run:
+      base: static

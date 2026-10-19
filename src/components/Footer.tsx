@@ -2,76 +2,58 @@ import { SOCIAL_LINKS } from "../constants/data";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-12 px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h4 className="text-xl font-semibold mb-4 text-gray-200">
-              Created by
-            </h4>
-            <a
-              href={SOCIAL_LINKS.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-            >
-              Kristiyan Velkov
-            </a>
-          </div>
-
-          <div>
-            <h4 className="text-xl font-semibold mb-4 text-gray-200">
-              Resources
-            </h4>
-            <div className="flex flex-col space-y-2">
-              <a
-                href={SOCIAL_LINKS.newsletter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-              >
-                📧 Frontend World Newsletter
-              </a>
-              <a
-                href={SOCIAL_LINKS.medium}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-              >
-                📝 Blog on Medium
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-xl font-semibold mb-4 text-gray-200">
-              Support
-            </h4>
-            <div className="flex flex-col space-y-2">
-              <a
-                href={SOCIAL_LINKS.donate}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-              >
-                💳 Donate via Stripe
-              </a>
-              <a
-                href={SOCIAL_LINKS.githubSponsors}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 hover:underline transition-colors duration-300"
-              >
-                💖 GitHub Sponsors
-              </a>
-            </div>
-          </div>
+    <footer className="border-t border-zinc-200 bg-zinc-50 py-12 px-6 md:px-8">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+        <div>
+          <p className="font-semibold text-zinc-900 tracking-tight">
+            React.js Advanced Workshop
+          </p>
+          <p className="text-sm text-zinc-500 mt-1">
+            Docker & React.js · MIT License
+          </p>
         </div>
 
-        <div className="pt-8 border-t border-white/10 text-center">
-          <p className="text-gray-400">
-            React.js Advanced Workshop • 4 Hours • London • MIT License
-          </p>
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-zinc-600">
+          <a
+            href={SOCIAL_LINKS.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-emerald-700 transition-colors"
+          >
+            Kristiyan Velkov
+          </a>
+          <a
+            href={SOCIAL_LINKS.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-emerald-700 transition-colors"
+          >
+            @krisvelkov
+          </a>
+          <a
+            href={SOCIAL_LINKS.newsletter}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-emerald-700 transition-colors"
+          >
+            Newsletter
+          </a>
+          <a
+            href={SOCIAL_LINKS.medium}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-emerald-700 transition-colors"
+          >
+            Medium
+          </a>
+          <a
+            href={SOCIAL_LINKS.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-emerald-700 transition-colors"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </footer>

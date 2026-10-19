@@ -5,13 +5,7 @@ import { Footer } from "./index";
 describe("Footer Component", () => {
   it("renders without crashing", () => {
     render(<Footer />);
-    expect(screen.getByText(/Created by/i)).toBeInTheDocument();
-  });
-
-  it("renders the Created by section", () => {
-    render(<Footer />);
-    expect(screen.getByText("Created by")).toBeInTheDocument();
-    expect(screen.getByText("Kristiyan Velkov")).toBeInTheDocument();
+    expect(screen.getByText(/React.js Advanced Workshop/i)).toBeInTheDocument();
   });
 
   it("renders the LinkedIn link correctly", () => {
@@ -22,77 +16,41 @@ describe("Footer Component", () => {
     expect(linkedinLink.closest("a")).toHaveAttribute("rel", "noopener noreferrer");
   });
 
-  it("renders the Resources section", () => {
+  it("renders the X link", () => {
     render(<Footer />);
-    expect(screen.getByText("Resources")).toBeInTheDocument();
+    const xLink = screen.getByText("@krisvelkov");
+    expect(xLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.x);
+    expect(xLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
   it("renders the Newsletter link", () => {
     render(<Footer />);
-    const newsletterLink = screen.getByText(/Frontend World Newsletter/i);
-    expect(newsletterLink).toBeInTheDocument();
+    const newsletterLink = screen.getByText("Newsletter");
     expect(newsletterLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.newsletter);
-    expect(newsletterLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
   it("renders the Medium blog link", () => {
     render(<Footer />);
-    const mediumLink = screen.getByText(/Blog on Medium/i);
-    expect(mediumLink).toBeInTheDocument();
+    const mediumLink = screen.getByText("Medium");
     expect(mediumLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.medium);
-    expect(mediumLink.closest("a")).toHaveAttribute("target", "_blank");
   });
 
-  it("renders the Support section", () => {
+  it("renders the GitHub link", () => {
     render(<Footer />);
-    expect(screen.getByText("Support")).toBeInTheDocument();
+    const githubLink = screen.getByText("GitHub");
+    expect(githubLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.github);
   });
 
-  it("renders the Stripe donation link", () => {
+  it("renders the license line", () => {
     render(<Footer />);
-    const donateLink = screen.getByText(/Donate via Stripe/i);
-    expect(donateLink).toBeInTheDocument();
-    expect(donateLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.donate);
-    expect(donateLink.closest("a")).toHaveAttribute("target", "_blank");
-  });
-
-  it("renders the GitHub Sponsors link", () => {
-    render(<Footer />);
-    const sponsorsLink = screen.getByText(/GitHub Sponsors/i);
-    expect(sponsorsLink).toBeInTheDocument();
-    expect(sponsorsLink.closest("a")).toHaveAttribute("href", SOCIAL_LINKS.githubSponsors);
-    expect(sponsorsLink.closest("a")).toHaveAttribute("target", "_blank");
-  });
-
-  it("renders the copyright text", () => {
-    render(<Footer />);
-    expect(
-      screen.getByText(/React.js Advanced Workshop • 4 Hours • London • MIT License/i)
-    ).toBeInTheDocument();
-  });
-
-  it("renders in a grid layout", () => {
-    const { container } = render(<Footer />);
-    const grid = container.querySelector(".grid.grid-cols-1.md\\:grid-cols-3");
-    expect(grid).toBeInTheDocument();
+    expect(screen.getByText(/Docker & React.js · MIT License/i)).toBeInTheDocument();
   });
 
   it("applies correct CSS classes to footer", () => {
     const { container } = render(<Footer />);
     const footer = container.querySelector("footer");
-    expect(footer).toHaveClass("bg-gray-800");
-    expect(footer).toHaveClass("text-white");
-    expect(footer).toHaveClass("py-12");
-  });
-
-  it("renders all section headings with correct styling", () => {
-    const { container } = render(<Footer />);
-    const headings = container.querySelectorAll("h4");
-    expect(headings.length).toBe(3);
-    headings.forEach((heading) => {
-      expect(heading).toHaveClass("text-xl");
-      expect(heading).toHaveClass("font-semibold");
-    });
+    expect(footer).toHaveClass("bg-zinc-50");
+    expect(footer).toHaveClass("border-t");
   });
 
   it("all external links have correct attributes", () => {
@@ -103,4 +61,3 @@ describe("Footer Component", () => {
     });
   });
 });
-

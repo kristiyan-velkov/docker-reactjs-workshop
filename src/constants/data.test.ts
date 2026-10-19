@@ -84,6 +84,7 @@ describe("Constants Data", () => {
   describe("SOCIAL_LINKS", () => {
     it("has all required properties", () => {
       expect(SOCIAL_LINKS).toHaveProperty("linkedin");
+      expect(SOCIAL_LINKS).toHaveProperty("x");
       expect(SOCIAL_LINKS).toHaveProperty("medium");
       expect(SOCIAL_LINKS).toHaveProperty("newsletter");
       expect(SOCIAL_LINKS).toHaveProperty("github");
@@ -120,6 +121,10 @@ describe("Constants Data", () => {
       expect(SOCIAL_LINKS.newsletter).toBe(
         "https://frontendworld.substack.com/"
       );
+    });
+
+    it("X link is correct", () => {
+      expect(SOCIAL_LINKS.x).toBe("https://x.com/krisvelkov");
     });
 
     it("Medium link is correct", () => {

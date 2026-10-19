@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://api.app-prg1.zerops.io/api/rest/public/settings/import-project-yaml-json-schema.json
+#
+# Paste into Zerops → Import a project, or: zcli project import import.yaml
+#
+# buildFromGit is omitted — connect GitHub on the workshop service after import,
+# then trigger the first deploy (private repos cannot clone without integration).
+
+project:
+  name: docker-reactjs-workshop
+  description: Interactive React.js Docker containerization workshop
+  tags:
+    - workshop
+    - react
+    - docker
+    - vite
+
+services:
+  - hostname: workshop
+    type: static
+    zeropsSetup: workshop
+    enableSubdomainAccess: true
+
+    minContainers: 1
+    maxContainers: 2
+
+    verticalAutoscaling:
+      minRam: 0.25
+      maxRam: 1
+      minCpu: 1
+      maxCpu: 2

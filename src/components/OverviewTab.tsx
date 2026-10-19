@@ -1,7 +1,7 @@
 export const OverviewTab = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="bg-gray-50 p-8 rounded-2xl border-l-4 border-[#667eea]">
+      <div className="bg-white p-8 rounded-2xl border border-surface-200 border-l-4 border-l-brand-600 shadow-sm">
         <h3 className="text-2xl font-bold text-gray-800 mb-6">
           🎯 Docker Files
         </h3>
@@ -29,7 +29,7 @@ export const OverviewTab = () => {
         </ul>
       </div>
 
-      <div className="bg-gray-50 p-8 rounded-2xl border-l-4 border-[#667eea]">
+      <div className="bg-white p-8 rounded-2xl border border-surface-200 border-l-4 border-l-brand-600 shadow-sm">
         <h3 className="text-2xl font-bold text-gray-800 mb-6">🔧 Tech Stack</h3>
         <ul className="space-y-4">
           <li className="text-gray-700 leading-relaxed pb-4 border-b border-gray-200">
@@ -39,7 +39,7 @@ export const OverviewTab = () => {
             Vite for blazing fast builds (dev port 5173)
           </li>
           <li className="text-gray-700 leading-relaxed pb-4 border-b border-gray-200">
-            Node.js 24.11.1 Alpine
+            Node.js 24.22.0 Alpine
           </li>
           <li className="text-gray-700 leading-relaxed pb-4 border-b border-gray-200">
             Nginx Unprivileged (prod port 8080)
