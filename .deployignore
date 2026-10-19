@@ -1,0 +1,12 @@
+# Used when deployFiles includes the project tree (e.g. optional dev setups).
+# Production deploy ships only dist/~; keep patterns aligned with .gitignore.
+
+node_modules/
+dist/
+coverage/
+.git/
+*.log
+.env
+.env.*
+.DS_Store
+.ai/

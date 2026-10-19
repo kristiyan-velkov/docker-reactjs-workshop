@@ -4,14 +4,15 @@ import { Hero } from "./index";
 describe("Hero Component", () => {
   it("renders without crashing", () => {
     render(<Hero />);
-    expect(screen.getByText(/React.js Advanced Workshop/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Containerize React.js/i })
+    ).toBeInTheDocument();
   });
 
-  it("renders the React logo", () => {
-    render(<Hero />);
-    const reactLogo = screen.getByAltText("React logo");
+  it("renders the React logo in the preview", () => {
+    const { container } = render(<Hero />);
+    const reactLogo = container.querySelector('img[src*="react"]');
     expect(reactLogo).toBeInTheDocument();
-    expect(reactLogo).toHaveAttribute("src");
   });
 
   it("renders the Docker emoji", () => {
@@ -19,27 +20,21 @@ describe("Hero Component", () => {
     expect(screen.getByText("🐳")).toBeInTheDocument();
   });
 
-  it("renders the main heading with correct text", () => {
+  it("renders the main heading with gradient emphasis", () => {
     render(<Hero />);
-    expect(screen.getByText(/React.js Advanced Workshop/i)).toBeInTheDocument();
-    expect(
-      screen.getByText(/Docker Containerization for React.js/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(/from zero to production/i)).toBeInTheDocument();
   });
 
   it("renders the description paragraph", () => {
     render(<Hero />);
     expect(
-      screen.getByText(
-        /Master advanced React.js patterns and Docker containerization/i
-      )
+      screen.getByText(/Step-by-step tasks, timers, and Docker references/i)
     ).toBeInTheDocument();
   });
 
-  it("renders the View Documentation button with correct link", () => {
+  it("renders the Docker guide link with correct href", () => {
     render(<Hero />);
-    const docButton = screen.getByText("View Documentation");
-    expect(docButton).toBeInTheDocument();
+    const docButton = screen.getByText("Docker React guide");
     expect(docButton.closest("a")).toHaveAttribute(
       "href",
       "https://docs.docker.com/guides/reactjs/"
@@ -48,32 +43,22 @@ describe("Hero Component", () => {
     expect(docButton.closest("a")).toHaveAttribute("rel", "noopener noreferrer");
   });
 
-  it("renders the GitHub Repository button with correct link", () => {
+  it("renders the start workshop anchor", () => {
     render(<Hero />);
-    const githubButton = screen.getByText("GitHub Repository");
-    expect(githubButton).toBeInTheDocument();
-    expect(githubButton.closest("a")).toHaveAttribute(
-      "href",
-      "https://github.com/kristiyan-velkov/docker-reactjs-workshop"
-    );
-    expect(githubButton.closest("a")).toHaveAttribute("target", "_blank");
-    expect(githubButton.closest("a")).toHaveAttribute("rel", "noopener noreferrer");
+    const startButton = screen.getByText("Start workshop");
+    expect(startButton.closest("a")).toHaveAttribute("href", "#materials");
   });
 
-  it("applies correct CSS classes to the header", () => {
+  it("applies correct CSS classes to the hero section", () => {
     const { container } = render(<Hero />);
-    const header = container.querySelector("header");
-    expect(header).toHaveClass("min-h-[90vh]");
-    expect(header).toHaveClass("flex");
-    expect(header).toHaveClass("items-center");
+    const section = container.querySelector("section");
+    expect(section).toHaveClass("min-h-[90vh]");
+    expect(section).toHaveClass("bg-zinc-950");
   });
 
-  it("renders animated decorative elements", () => {
-    const { container } = render(<Hero />);
-    const decorativeElements = container.querySelectorAll(
-      ".absolute.rounded-full"
-    );
-    expect(decorativeElements.length).toBeGreaterThan(0);
+  it("renders workshop stats", () => {
+    render(<Hero />);
+    expect(screen.getByText("Interactive tasks")).toBeInTheDocument();
+    expect(screen.getByText("Deploy ready")).toBeInTheDocument();
   });
 });
-

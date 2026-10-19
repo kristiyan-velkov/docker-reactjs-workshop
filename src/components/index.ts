@@ -1,3 +1,4 @@
+export { SiteHeader } from "./SiteHeader";
 export { Hero } from "./Hero";
 export { Features } from "./Features";
 export { FeatureCard } from "./FeatureCard";
@@ -8,5 +9,6 @@ export { CommandCard } from "./CommandCard";
 export { DockerConcepts } from "./DockerConcepts";
 export { DockerCommandsReference } from "./DockerCommandsReference";
 export { WorkshopTasks } from "./WorkshopTasks";
+export { TaskStepsPanel } from "./TaskStepsPanel";
 export { Footer } from "./Footer";
 

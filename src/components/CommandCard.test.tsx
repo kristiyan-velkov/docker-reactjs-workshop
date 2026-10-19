@@ -64,11 +64,11 @@ describe("CommandCard Component", () => {
 
   it("applies correct CSS classes", () => {
     const { container } = render(<CommandCard command={mockCommand} />);
-    const card = container.querySelector(".bg-gray-50.p-8");
+    const card = container.querySelector(".bg-white.p-8");
     expect(card).toBeInTheDocument();
     expect(card).toHaveClass("rounded-2xl");
     expect(card).toHaveClass("border-l-4");
-    expect(card).toHaveClass("border-green-500");
+    expect(card).toHaveClass("border-l-brand-600");
   });
 
   it("renders command in dark code block", () => {

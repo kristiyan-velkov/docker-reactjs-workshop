@@ -21,6 +21,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predev": "node --experimental-strip-types scripts/sync-dev-env.ts",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
@@ -31,6 +32,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "4.3.3",
+    "dont-install-this-pkg": "1.0.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

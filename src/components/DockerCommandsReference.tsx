@@ -6,7 +6,7 @@ export const DockerCommandsReference = () => {
       {DOCKER_COMMANDS_REFERENCE.map((category, categoryIndex) => (
         <div
           key={categoryIndex}
-          className="bg-gray-50 p-8 rounded-2xl border-l-4 border-[#667eea] shadow-md"
+          className="bg-white p-8 rounded-2xl border border-surface-200 border-l-4 border-l-brand-600 shadow-sm"
         >
           <div className="flex items-center gap-3 mb-6">
             <span className="text-3xl">{category.icon}</span>
@@ -16,7 +16,7 @@ export const DockerCommandsReference = () => {
             {category.commands.map((cmd, cmdIndex) => (
               <div
                 key={cmdIndex}
-                className="bg-white p-6 rounded-xl border border-gray-200 hover:border-[#667eea] transition-colors duration-200"
+                className="bg-surface-50 p-6 rounded-xl border border-surface-200 hover:border-brand-500/50 hover:shadow-sm transition-all duration-200"
               >
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <h4 className="text-lg font-semibold text-gray-800">

@@ -5,13 +5,12 @@ import { Features } from "./index";
 describe("Features Component", () => {
   it("renders without crashing", () => {
     render(<Features />);
-    expect(screen.getByText(/Workshop Learning Objectives/i)).toBeInTheDocument();
+    expect(screen.getByText(/Workshop objectives/i)).toBeInTheDocument();
   });
 
   it("renders the main heading", () => {
     render(<Features />);
-    const heading = screen.getByText(/Workshop Learning Objectives/i);
-    expect(heading).toBeInTheDocument();
+    const heading = screen.getByText(/Workshop objectives/i);
     expect(heading.tagName).toBe("H2");
   });
 
@@ -26,7 +25,7 @@ describe("Features Component", () => {
 
   it("renders correct number of feature cards", () => {
     const { container } = render(<Features />);
-    const featureCards = container.querySelectorAll(".bg-white.p-10");
+    const featureCards = container.querySelectorAll(".rounded-2xl.p-6");
     expect(featureCards.length).toBe(FEATURES.length);
   });
 
@@ -34,8 +33,8 @@ describe("Features Component", () => {
     const { container } = render(<Features />);
     const section = container.querySelector("section");
     expect(section).toHaveClass("py-24");
-    expect(section).toHaveClass("px-8");
-    expect(section).toHaveClass("bg-gray-50");
+    expect(section).toHaveClass("px-6");
+    expect(section).toHaveClass("bg-zinc-50");
   });
 
   it("renders feature cards in a grid layout", () => {
@@ -47,4 +46,3 @@ describe("Features Component", () => {
     expect(grid).toHaveClass("lg:grid-cols-3");
   });
 });
-
