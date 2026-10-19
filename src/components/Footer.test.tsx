@@ -67,7 +67,9 @@ describe("Footer Component", () => {
   it("renders the copyright text", () => {
     render(<Footer />);
     expect(
-      screen.getByText(/React.js Advanced Workshop • 4 Hours • London • MIT License/i)
+      screen.getByText(
+        /React.js Advanced Workshop • Docker & React.js • MIT License/i
+      )
     ).toBeInTheDocument();
   });
 

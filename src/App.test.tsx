@@ -13,8 +13,10 @@ describe("App Component", () => {
     render(<App />);
     
     // Hero section - use getAllByText since text appears multiple times
-    const londonTexts = screen.getAllByText(/4 Hours • London/i);
-    expect(londonTexts.length).toBeGreaterThan(0);
+    const taglineTexts = screen.getAllByText(
+      /Docker Containerization for React.js/i
+    );
+    expect(taglineTexts.length).toBeGreaterThan(0);
     
     // Features section
     expect(screen.getByText(/Workshop Learning Objectives/i)).toBeInTheDocument();

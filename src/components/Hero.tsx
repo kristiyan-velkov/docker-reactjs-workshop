@@ -3,7 +3,7 @@ import { SOCIAL_LINKS } from "../constants/data";
 
 export const Hero = () => {
   return (
-    <header className="min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-[#667eea] via-[#764ba2] to-[#667eea] animate-background-shift relative overflow-hidden px-8 py-8">
+    <header className="min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-[#031e1d] via-[#0b9590] to-[#045e2e] animate-background-shift relative overflow-hidden px-8 py-8">
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-2 h-2 bg-white/20 rounded-full animate-float animate-delay-100"></div>
         <div className="absolute top-40 right-32 w-1 h-1 bg-blue-300/30 rounded-full animate-gentle-bounce animate-delay-200"></div>
@@ -27,14 +27,14 @@ export const Hero = () => {
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight animate-title-reveal">
           React.js Advanced Workshop
           <span className="block bg-gradient-to-r from-[#4facfe] to-[#00f2fe] bg-clip-text text-transparent">
-            4 Hours • London
+            Docker Containerization for React.js
           </span>
         </h1>
 
         <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto animate-subtitle-reveal">
-          Master advanced React.js concepts and Docker containerization in this
-          intensive 4-hour workshop. Learn production-ready patterns,
-          performance optimization, and modern deployment strategies.
+          Master advanced React.js patterns and Docker containerization in this
+          hands-on workshop. Learn production-ready builds, performance
+          optimization, and modern deployment strategies.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-button-reveal">

@@ -22,14 +22,16 @@ describe("Hero Component", () => {
   it("renders the main heading with correct text", () => {
     render(<Hero />);
     expect(screen.getByText(/React.js Advanced Workshop/i)).toBeInTheDocument();
-    expect(screen.getByText(/4 Hours • London/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Docker Containerization for React.js/i)
+    ).toBeInTheDocument();
   });
 
   it("renders the description paragraph", () => {
     render(<Hero />);
     expect(
       screen.getByText(
-        /Master advanced React.js concepts and Docker containerization/i
+        /Master advanced React.js patterns and Docker containerization/i
       )
     ).toBeInTheDocument();
   });

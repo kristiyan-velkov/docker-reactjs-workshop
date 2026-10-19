@@ -70,7 +70,7 @@ export const Footer = () => {
 
         <div className="pt-8 border-t border-white/10 text-center">
           <p className="text-gray-400">
-            React.js Advanced Workshop • 4 Hours • London • MIT License
+            React.js Advanced Workshop • Docker & React.js • MIT License
           </p>
         </div>
       </div>
