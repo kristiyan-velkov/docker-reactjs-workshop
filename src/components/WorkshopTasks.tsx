@@ -773,7 +773,7 @@ export const WorkshopTasks = () => {
   const [timers, setTimers] = useState<Record<number, TimerState>>(() =>
     loadTimersFromStorage()
   );
-  const intervalRefs = useRef<Record<number, NodeJS.Timeout>>({});
+  const intervalRefs = useRef<Record<number, ReturnType<typeof setInterval>>>({});
   const isInitialMount = useRef(true);
 
   // Mark initial mount as complete after first render
