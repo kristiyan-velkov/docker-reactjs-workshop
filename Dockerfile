@@ -2,7 +2,7 @@
 # =========================================
 # Stage 1: Build the React.js Application
 # =========================================
-ARG NODE_VERSION=24.22.0-alpine
+ARG NODE_VERSION=24.22.1-alpine
 ARG NGINX_VERSION=alpine3.22
 
 FROM node:${NODE_VERSION} AS builder

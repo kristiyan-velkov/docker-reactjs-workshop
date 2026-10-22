@@ -36,7 +36,7 @@ describe("OverviewTab Component", () => {
     render(<OverviewTab />);
     expect(screen.getByText(/React 19 with TypeScript/i)).toBeInTheDocument();
     expect(screen.getByText(/Vite for blazing fast builds/i)).toBeInTheDocument();
-    expect(screen.getByText(/Node.js 24.22.0 Alpine/i)).toBeInTheDocument();
+    expect(screen.getByText(/Node.js 24.22.1 Alpine/i)).toBeInTheDocument();
     expect(screen.getByText(/Nginx Unprivileged/i)).toBeInTheDocument();
     expect(screen.getByText(/ESLint & Vitest for quality/i)).toBeInTheDocument();
   });

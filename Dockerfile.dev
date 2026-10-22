@@ -2,7 +2,7 @@
 # =========================================
 # Stage 1: Develop the React.js Application
 # =========================================
-ARG NODE_VERSION=24.22.0-alpine
+ARG NODE_VERSION=24.22.1-alpine
 
 FROM node:${NODE_VERSION} AS dev
 
