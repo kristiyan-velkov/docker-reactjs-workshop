@@ -49,7 +49,7 @@ By the end of this workshop, you will:
   - NGINX Unprivileged (production - port 8080)
   - Node.js serve (alternative production - port 8080)
   - Vite dev server (development - port 5173)
-- **Node.js**: `24.22.0-alpine` in Dockerfiles; 22+ LTS for local development and CI
+- **Node.js**: `24.22.1-alpine` in Dockerfiles; 22+ LTS for local development and CI
 
 ## 📋 Prerequisites
 

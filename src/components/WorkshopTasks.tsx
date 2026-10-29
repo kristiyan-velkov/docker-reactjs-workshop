@@ -119,7 +119,7 @@ const WORKSHOP_TASKS: Task[] = [
         number: 2,
         title: "Ask Gordon to containerize the app",
         description:
-          'Prompt Gordon to generate Docker assets for your Vite React app. Example: "Containerize this React + Vite application. Use Node.js 24.22.0-alpine, npm, build output in dist/, and include Dockerfile, .dockerignore, and compose.yaml for local development." Approve file writes when prompted.',
+          'Prompt Gordon to generate Docker assets for your Vite React app. Example: "Containerize this React + Vite application. Use Node.js 24.22.1-alpine, npm, build output in dist/, and include Dockerfile, .dockerignore, and compose.yaml for local development." Approve file writes when prompted.',
         tips: [
           "Mention npm run build and that production output is in dist/",
           "Ask for a dev service with hot reload if you want compose for development",
@@ -163,7 +163,7 @@ const WORKSHOP_TASKS: Task[] = [
         number: 1,
         title: "Create the build stage",
         description:
-          "Start with ARG declarations for NODE_VERSION (24.22.0-alpine) and NGINX_VERSION (alpine3.22). Create Stage 1 (builder) using node:${NODE_VERSION}. Set WORKDIR to /app. Copy package.json and package-lock.json first, then run npm ci with cache mount. Copy the rest of your source code, then run npm run build.",
+          "Start with ARG declarations for NODE_VERSION (24.22.1-alpine) and NGINX_VERSION (alpine3.22). Create Stage 1 (builder) using node:${NODE_VERSION}. Set WORKDIR to /app. Copy package.json and package-lock.json first, then run npm ci with cache mount. Copy the rest of your source code, then run npm run build.",
         tips: [
           "Use ARG to make versions configurable",
           "Copy package files first for better Docker layer caching",
@@ -346,7 +346,7 @@ http {
         number: 2,
         title: "Configure for development",
         description:
-          "Use Node.js 24.22.0-alpine. Set WORKDIR to /app. Copy package files first, then install dependencies with npm install (not npm ci - dev dependencies needed). Copy source code. Create non-root user (nodejs, UID 1001) with addgroup and adduser. Change ownership of /app to nodejs. Switch to USER nodejs. EXPOSE port 5173. Set CMD to npm run dev.",
+          "Use Node.js 24.22.1-alpine. Set WORKDIR to /app. Copy package files first, then install dependencies with npm install (not npm ci - dev dependencies needed). Copy source code. Create non-root user (nodejs, UID 1001) with addgroup and adduser. Change ownership of /app to nodejs. Switch to USER nodejs. EXPOSE port 5173. Set CMD to npm run dev.",
         tips: [
           "Use npm install (not npm ci) for dev dependencies",
           "Create user before switching to it",
@@ -390,7 +390,7 @@ http {
         number: 2,
         title: "Add build and serve stages",
         description:
-          "Create build stage with Node.js 24.22.0-alpine. Copy package files, run npm ci with cache. Copy source and build. Create final stage with Node.js. Set NODE_ENV=production. Install serve@14.2.5 globally. Copy built files from build stage to /app/dist with --chown=node:node. Switch to USER node. EXPOSE 8080. Set CMD to serve -s dist -l 8080.",
+          "Create build stage with Node.js 24.22.1-alpine. Copy package files, run npm ci with cache. Copy source and build. Create final stage with Node.js. Set NODE_ENV=production. Install serve@14.2.5 globally. Copy built files from build stage to /app/dist with --chown=node:node. Switch to USER node. EXPOSE 8080. Set CMD to serve -s dist -l 8080.",
         tips: [
           "Multi-stage keeps final image small",
           "Install serve globally in final stage",
@@ -605,7 +605,7 @@ http {
           "All lines are currently commented with #",
           "The workflow includes linting, testing, and Docker image building",
           "Tests run with npm test (same as local validation)",
-          "It's configured for Node.js 24.22.0 (matching the workshop Docker image)",
+          "It's configured for Node.js 24.22.1 (matching the workshop Docker image)",
         ],
       },
       {
