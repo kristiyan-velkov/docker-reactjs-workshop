@@ -92,7 +92,7 @@ export const DOCKER_CONCEPTS: DockerConcept[] = [
     description:
       "A Dockerfile is a text file containing instructions for building a Docker image. It defines the base image, sets up the environment, copies files, installs dependencies, and configures how the container runs. This project uses multi-stage builds for optimized production images.",
     example:
-      "FROM node:24.22.0-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
+      "FROM node:24.22.1-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build",
     docsLink: "https://docs.docker.com/reference/dockerfile/",
   },
   {
@@ -216,7 +216,7 @@ export const DOCKER_COMMANDS_REFERENCE: DockerCommandCategory[] = [
         command: "docker pull <image-name>:<tag>",
         description: "Download an image from a registry",
         examples: [
-          "docker pull node:24.22.0-alpine",
+          "docker pull node:24.22.1-alpine",
           "docker pull nginxinc/nginx-unprivileged:alpine3.22",
         ],
       },

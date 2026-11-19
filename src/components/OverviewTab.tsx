@@ -39,7 +39,7 @@ export const OverviewTab = () => {
             Vite for blazing fast builds (dev port 5173)
           </li>
           <li className="text-gray-700 leading-relaxed pb-4 border-b border-gray-200">
-            Node.js 24.22.0 Alpine
+            Node.js 24.22.1 Alpine
           </li>
           <li className="text-gray-700 leading-relaxed pb-4 border-b border-gray-200">
             Nginx Unprivileged (prod port 8080)
